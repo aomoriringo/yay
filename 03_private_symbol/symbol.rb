@@ -14,3 +14,19 @@
 #    { hoge: "foo", "piyo" => :boom, 1 => "one" }
 # < output
 #   { "hoge" => "foo", :piyo => :boom, :"1" => "one" }
+
+class SymbolManipulator
+  def self.hash_key_switcher(h)
+    return h unless h.instance_of?(Hash)
+    h.map do |key, val|
+      case key
+      when String
+        [key.to_sym, val]
+      when Symbol
+        [key.to_s, val]
+      else
+        [key.to_s.to_sym, val]
+      end
+    end.to_h
+  end
+end
