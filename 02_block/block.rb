@@ -18,11 +18,7 @@
 class LearnBlock
   def ext_sum(arg1, arg2, &blk)
     arg = arg1 + arg2
-    if blk
-      blk.call(arg)
-    else
-      arg
-    end
+    blk ? blk.call(arg) : arg
   end
 
   def search_unknown(arr, x)
