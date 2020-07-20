@@ -26,3 +26,26 @@
 #         Configure 'sugoi' as 'oniyabai'
 #         Configure 'foo' as 'iihanashi'
 #         Configure 'hoge' as 'uhyo-'
+
+class Args
+  def calc(s, num, len = nil)
+    len = num if len.nil?
+    [s.to_s*num]*len
+  end
+
+  def count_object(array: [], keyword: )
+    array.select { |x| x == keyword }.length
+  end
+
+  def configure(benri:, sugoi:, **options)
+    conf(:benri, benri)
+    conf(:sugoi, sugoi)
+    options.keys.sort.select { |k| k.to_s.start_with?('c_') }.each { |k| conf(k.to_s.delete_prefix('c_'), options[k]) }
+  end
+
+  private
+
+  def conf(key, val)
+    puts "Configure '#{key}' as '#{val}'"
+  end
+end
